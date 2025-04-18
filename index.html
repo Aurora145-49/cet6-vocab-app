@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>六级词汇自测</title>
+  <style>
+    body { font-family: sans-serif; padding: 2em; max-width: 500px; margin: auto; }
+    .card { border: 1px solid #ddd; border-radius: 6px; padding: 1em; margin-bottom: 1em; }
+    button { padding: 0.5em 1em; margin: 0.5em 0.2em; }
+    input { padding: 0.4em; width: 100%; box-sizing: border-box; }
+  </style>
+</head>
+<body>
+  <h1>六级词汇自测</h1>
+  <div class="card">
+    <p id="meaning" style="font-size:1.2em;"></p>
+    <input id="answer" placeholder="请输入英文单词" autocomplete="off"/>
+    <div>
+      <button id="checkBtn">检查</button>
+      <button id="nextBtn">下一个</button>
+    </div>
+    <p id="result" style="margin-top:0.5em;font-weight:bold;"></p>
+  </div>
+
+  <script>
+    const wordList = [
+      { word: "bias", meaning: "偏见，偏向" },
+      { word: "acknowledge", meaning: "承认，致谢" },
+      { word: "allocate", meaning: "分配，拨给" },
+      { word: "assemble", meaning: "集合，组装" },
+      { word: "collapse", meaning: "倒塌，崩溃" },
+      { word: "conform", meaning: "符合，遵守" },
+      { word: "controversy", meaning: "争议" },
+      { word: "devastate", meaning: "毁灭，使震惊" },
+      { word: "diverse", meaning: "多样的" },
+      { word: "eliminate", meaning: "消除，淘汰" },
+      { word: "exploit", meaning: "剥削，开发" },
+      { word: "fluctuate", meaning: "波动，起伏" },
+      { word: "implement", meaning: "实施，工具" },
+      { word: "inevitable", meaning: "不可避免的" },
+      { word: "interpret", meaning: "解释，口译" },
+      { word: "justify", meaning: "证明…是正当的" },
+      { word: "legitimate", meaning: "合法的，正当的" },
+      { word: "manipulate", meaning: "操纵，操作" },
+      { word: "notion", meaning: "概念，观念" },
+      { word: "obstacle", meaning: "障碍" }
+    ];
+
+    let idx = 0;
+    const meaningEl = document.getElementById("meaning");
+    const answerEl  = document.getElementById("answer");
+    const resultEl  = document.getElementById("result");
+    const checkBtn  = document.getElementById("checkBtn");
+    const nextBtn   = document.getElementById("nextBtn");
+
+    function loadWord() {
+      const current = wordList[idx];
+      meaningEl.textContent = "中文： " + current.meaning;
+      resultEl.textContent = "";
+      answerEl.value = "";
+      answerEl.focus();
+    }
+
+    checkBtn.addEventListener("click", () => {
+      const current = wordList[idx];
+      if (answerEl.value.trim().toLowerCase() === current.word.toLowerCase()) {
+        resultEl.textContent = "✅ 正确！";
+      } else {
+        resultEl.textContent = "❌ 错了，是：" + current.word;
+      }
+    });
+
+    nextBtn.addEventListener("click", () => {
+      idx = (idx + 1) % wordList.length;
+      loadWord();
+    });
+
+    // 初次加载
+    loadWord();
+  </script>
+</body>
+</html>
